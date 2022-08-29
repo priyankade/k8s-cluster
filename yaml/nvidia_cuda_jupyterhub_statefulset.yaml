@@ -1,0 +1,57 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: nvidia_cuda_jupyterhub
+  labels:
+    run: nvidia_cuda_jupyterhub
+spec:
+  type: NodePort
+  ports:
+  - port: 8000
+    targetPort: 8005
+    protocol: TCP
+    name: http
+  - port: 22
+    targetPort: 2222
+    protocol: SSH
+    name: http
+  selector:
+    run: nvidia_cuda_jupyterhub
+---
+
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: nvidia_cuda_jupyterhub 
+  labels:
+    app: nvidia_cuda_jupyterhub
+spec:
+  replicas: 1 
+  selector:
+    matchLabels:
+      app: nvidia_cuda_jupyterhub
+  serviceName: "nvidia_cuda_jupyterhub"
+  template:
+    metadata:
+      labels:
+        app: nvidia_cuda_jupyterhub
+    spec:
+      containers:
+      - name: nvidia_cuda_jupyterhub
+        image: batrakunal/nvidia_cuda_jupyterhub:latest 
+        ports:
+        - containerPort: 8000
+        - containerPort: 8888
+        - containerPort: 22
+        volumeMounts:
+        - mountPath: /root
+        - mountPath: /etc
+        - mountPath: /opt
+    volumeClaimTemplates:
+    - metadata:
+        name: nvidia_cuda_jupyterhub
+      spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 1Gi

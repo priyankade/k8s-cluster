@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: jupyterhub-svc
+  #labels:
+  #  run: nvidia_cuda_jupyterhub
+spec:
+  type: NodePort
+  ports:
+  - port: 8005
+    targetPort: 8000
+    protocol: TCP
+    name: http
+  - port: 2222
+    targetPort: 22
+    protocol: TCP 
+    name: ssh 
+  selector:
+    app: nvidia-cuda-jupyterhub
+
