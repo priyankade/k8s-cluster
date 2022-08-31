@@ -7,7 +7,7 @@ metadata:
 spec:
   containers:
   - name: jupyterhub-kube
-    image: batrakunal/jupyterhub:cuda11.2.0_cudnn8_ubuntu20_kube
+    image: priyade/jupyterhub:cuda11.2.0_cudnn8_ubuntu20_kube
     command: ["/bin/sh", "-c", "jupyterhub", "-f", "/opt/jupyterhub/jupyterhub_config.py"]
     ports:
     - containerPort: 8000
