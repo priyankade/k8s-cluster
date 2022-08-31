@@ -38,7 +38,7 @@ spec:
     spec:
       containers:
       - name: nvidia_cuda_jupyterhub
-        image: batrakunal/nvidia_cuda_jupyterhub:latest 
+        image: priyade/nvidia_cuda_jupyterhub:latest 
         ports:
         - containerPort: 8000
         - containerPort: 8888
